@@ -3,23 +3,23 @@
 // SPDX-License-Identifier: Unlicensed
 pragma solidity ^0.8.0;
 
-contract DepositVaultsAggregator {
+contract SwapReservationsAggregator {
     constructor(uint32[] memory indexesArray, address riftExchangeContract) {
-        bytes[] memory allDepositVaults = new bytes[](indexesArray.length);
+        bytes[] memory allSwapReservations = new bytes[](indexesArray.length);
 
         for (uint256 i = 0; i < indexesArray.length; ++i) {
-            (, bytes memory depositVaultData) = riftExchangeContract.call{
+            (, bytes memory swapReservationData) = riftExchangeContract.call{
                 gas: 20010
             }(
                 abi.encodeWithSignature(
-                    "getDepositVault(uint256)",
+                    "getReservation(uint256)",
                     indexesArray[i]
                 )
             );
-            allDepositVaults[i] = depositVaultData;
+            allSwapReservations[i] = swapReservationData;
         }
 
-        bytes memory _abiEncodedData = abi.encode(allDepositVaults);
+        bytes memory _abiEncodedData = abi.encode(allSwapReservations);
 
         assembly {
             let dataStart := add(_abiEncodedData, 0x20)
