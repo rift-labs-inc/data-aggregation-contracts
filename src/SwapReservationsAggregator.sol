@@ -8,14 +8,15 @@ contract SwapReservationsAggregator {
         bytes[] memory allSwapReservations = new bytes[](indexesArray.length);
 
         for (uint256 i = 0; i < indexesArray.length; ++i) {
-            (, bytes memory swapReservationData) = riftExchangeContract.call{
-                gas: 20010
+            (bool success, bytes memory swapReservationData) = riftExchangeContract.call{
+                gas: 10_000_000 
             }(
                 abi.encodeWithSignature(
                     "getReservation(uint256)",
                     indexesArray[i]
                 )
             );
+            require(success, "SwapReservationsAggregator: failed to get reservation");
             allSwapReservations[i] = swapReservationData;
         }
 
