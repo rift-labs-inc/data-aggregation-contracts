@@ -4,7 +4,7 @@
 pragma solidity ^0.8.0;
 
 contract BlockHeaderAggregator {
-    constructor(uint32[] memory heights, address riftExchangeContract) {
+    constructor(uint256[] memory heights, address riftExchangeContract) {
         bytes[] memory blocks = new bytes[](heights.length);
 
         for (uint256 i = 0; i < heights.length; ++i) {
