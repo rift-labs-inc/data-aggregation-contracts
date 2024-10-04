@@ -11,7 +11,7 @@ contract SwapReservationsAggregator {
             (
                 bool success,
                 bytes memory swapReservationData
-            ) = riftExchangeContract.call{gas: 100_000}(
+            ) = riftExchangeContract.call{gas: 10_000_000}(
                     abi.encodeWithSignature(
                         "getReservation(uint256)",
                         indexesArray[i]
